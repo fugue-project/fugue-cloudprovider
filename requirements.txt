@@ -1,0 +1,27 @@
+# test requirements
+pre-commit
+mypy
+flake8
+autopep8
+black
+pylint
+types-requests
+pytest
+pytest-cov
+pytest-mock
+sphinx
+sphinx-autodoc-typehints
+sphinx-rtd-theme
+furo
+
+cloudpickle
+
+# publish to pypi
+wheel
+twine
+
+types-six
+
+jupyter
+jupyterlab
+fugue-jupyterlab
