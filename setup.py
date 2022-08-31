@@ -25,11 +25,13 @@ setup(
         "gcp": ["fs-gcsfs"],
         "databricks": ["databricks-connect", "databricks-cli"],
         "coiled": ["coiled>=0.2.24", "dask[dataframe,distributed]"],
+        "anyscale": ["fugue[ray]", "anyscale"],
     },
     entry_points={
         "fugue.plugins": [
             "databricks = fugue_databricks.registry:register[databricks]",
             "coiled = fugue_coiled.registry:register[coiled]",
+            "anyscale = fugue_anyscale.registry:register[anyscale]",
         ]
     },
     classifiers=[
