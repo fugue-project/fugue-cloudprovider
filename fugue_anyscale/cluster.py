@@ -1,10 +1,11 @@
 import logging
+import os
 from typing import Any, Iterable
 
 import ray
 from anyscale import AnyscaleSDK
-from triad import ParamDict, assert_or_throw
 from fugue_ray._constants import FUGUE_RAY_CONF_SHUFFLE_PARTITIONS
+from triad import ParamDict, assert_or_throw
 
 _LOG = logging.getLogger(__name__)
 
@@ -16,6 +17,8 @@ class Cluster:
     ):
         self._conf = ParamDict(conf)
         self._sdk = AnyscaleSDK(self._conf.get_or_none("token", str))
+        if "token" in self._conf:
+            os.environ["ANYSCALE_CLI_TOKEN"] = self._conf.get_or_none("token", str)
         self._ephemeral = self._conf.get("ephemeral", False)
         if "address" in self._conf:
             assert_or_throw(
