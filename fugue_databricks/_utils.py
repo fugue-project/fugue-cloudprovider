@@ -151,14 +151,14 @@ def get_databricks_spark(conf: Any) -> Tuple[SparkSession, Optional[Cluster]]:
                 " remote cluster, cluster and libraries can't exist"
             ),
         )
-        cluster = Cluster(_conf, client, ephemeral=False)
+        cluster = Cluster(_conf, client, ephemeral=_conf.get("ephemeral", False))
         return _create_session(_create_session_conf(_conf)), cluster
     # create an on-demand cluster
     assert_or_throw(
         "cluster" in _conf,
         ValueError("cluster is required to create an emphemeral cluster"),
     )
-    cluster = Cluster(_conf, client, ephemeral=True)
+    cluster = Cluster(_conf, client, ephemeral=_conf.get("ephemeral", True))
     _conf["cluster_id"] = cluster.cluster_id
     return _create_session(_create_session_conf(_conf)), cluster
 
