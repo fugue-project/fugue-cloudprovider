@@ -47,6 +47,6 @@ class DatabricksExecutionEngine(SparkExecutionEngine):
             self._cluster.stop(ignore_error=True)
 
     def convert_yield_dataframe(self, df: DataFrame, as_local: bool) -> DataFrame:
-        if not self.ephemeral:
+        if not self.ephemeral or self._ctx_count > 1:
             return super().convert_yield_dataframe(df, as_local)
         return df.as_local()
