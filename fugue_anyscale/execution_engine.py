@@ -15,6 +15,6 @@ class AnyscaleExecutionEngine(RayExecutionEngine):
             self._cluster.stop(ignore_error=False)
 
     def convert_yield_dataframe(self, df: DataFrame, as_local: bool) -> DataFrame:
-        if self._stop_cluster and self._cluster.ephemeral:
+        if self._stop_cluster and self._ctx_count <= 1:
             return df.as_local()
         return super().convert_yield_dataframe(df, as_local)

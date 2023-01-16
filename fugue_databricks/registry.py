@@ -1,6 +1,6 @@
 from typing import Any
 
-from fugue import parse_execution_engine
+from fugue.plugins import parse_execution_engine
 from triad import ParamDict
 
 from .execution_engine import DatabricksExecutionEngine

@@ -18,7 +18,7 @@ setup(
     keywords="fugue aws gcp azure databricks",
     url="http://github.com/fugue-project/fugue-cloudprovider",
     install_requires=[
-        "fugue>=0.7.1",
+        "fugue>=0.8.0",
     ],
     extras_require={
         "aws": ["boto3", "fs-s3fs"],

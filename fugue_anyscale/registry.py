@@ -1,6 +1,7 @@
 from typing import Any
 
-from fugue import ExecutionEngine, parse_execution_engine
+from fugue import ExecutionEngine
+from fugue.plugins import parse_execution_engine
 from triad import ParamDict, assert_or_throw
 
 from .cluster import Cluster

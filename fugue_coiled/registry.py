@@ -4,7 +4,8 @@ from typing import Any, Callable
 import dask
 from coiled import Cluster
 from dask.distributed import Client, get_client
-from fugue import ExecutionEngine, make_execution_engine, parse_execution_engine
+from fugue import ExecutionEngine, make_execution_engine
+from fugue.plugins import parse_execution_engine
 from triad import ParamDict, assert_or_throw
 
 from .client import CoiledDaskClient

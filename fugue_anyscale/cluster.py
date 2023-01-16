@@ -4,7 +4,6 @@ from typing import Any, Iterable
 
 import ray
 from anyscale import AnyscaleSDK
-from fugue_ray._constants import FUGUE_RAY_CONF_SHUFFLE_PARTITIONS
 from triad import ParamDict, assert_or_throw
 
 _LOG = logging.getLogger(__name__)
@@ -47,10 +46,11 @@ class Cluster:
                 " can exist in Anyscale config"
             )
 
-        if FUGUE_RAY_CONF_SHUFFLE_PARTITIONS not in self._conf:
-            cpus = self._get_all_cpus()
-            if cpus > 0:
-                self._conf[FUGUE_RAY_CONF_SHUFFLE_PARTITIONS] = cpus * 2
+        # to deal with the bug of ray
+        # https://github.com/ray-project/ray/issues/31077
+        if ray.__version__ < "2.3":
+            context = ray.data.context.DatasetContext.get_current()
+            context.block_splitting_enabled = False
 
     @property
     def conf(self) -> ParamDict:
