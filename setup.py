@@ -18,34 +18,33 @@ setup(
     keywords="fugue aws gcp azure databricks",
     url="http://github.com/fugue-project/fugue-cloudprovider",
     install_requires=[
-        "fugue>=0.8.0",
+        "fugue>=0.8.5",
     ],
     extras_require={
         "aws": ["boto3", "fs-s3fs"],
         "gcp": ["fs-gcsfs"],
         "databricks": ["databricks-connect", "databricks-cli"],
         "coiled": ["coiled>=0.2.24", "dask[dataframe,distributed]"],
-        "anyscale": ["fugue[ray]", "anyscale"],
+        "anyscale": ["fugue[ray]>=0.8.5", "anyscale"],
     },
     entry_points={
         "fugue.plugins": [
-            "databricks = fugue_databricks.registry:register[databricks]",
-            "coiled = fugue_coiled.registry:register[coiled]",
-            "anyscale = fugue_anyscale.registry:register[anyscale]",
+            "databricks = fugue_databricks.registry[databricks]",
+            "coiled = fugue_coiled.registry[coiled]",
+            "anyscale = fugue_anyscale.registry[anyscale]",
         ]
     },
     classifiers=[
         # "3 - Alpha", "4 - Beta" or "5 - Production/Stable"
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: Apache Software License",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )

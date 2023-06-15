@@ -3,7 +3,12 @@ from typing import Any
 from fugue.plugins import parse_execution_engine
 from triad import ParamDict
 
+try:
+    from pyspark.sql.connect.session import SparkSession as ConnectSparkSession
+except ImportError:
+    ConnectSparkSession = None
 from .execution_engine import DatabricksExecutionEngine
+from fugue_spark import SparkExecutionEngine
 
 
 def _is_match(engine: Any, conf: Any, **kwargs: Any):
@@ -27,6 +32,11 @@ def _parse_db_engine(
     return DatabricksExecutionEngine(conf=_conf)
 
 
-# TODO: remove after Fugue is fully moved to conditional_dispatcher
-def register() -> None:
-    pass
+@parse_execution_engine.candidate(
+    lambda engine, conf, **kwargs: ConnectSparkSession is not None
+    and isinstance(engine, ConnectSparkSession)
+)
+def _parse_connect_engine(
+    engine: Any, conf: Any, **kwargs: Any
+) -> DatabricksExecutionEngine:
+    return SparkExecutionEngine(engine, conf=conf)

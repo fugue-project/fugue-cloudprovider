@@ -200,7 +200,12 @@ def _create_session(conf: Dict[str, Any]) -> SparkSession:
             cfg.write_text("{}")
     except Exception as e:
         _LOG.warning("Unable to automatically configure databricks-connect %s", e)
-    bd = SparkSession.builder
+    if DATABRICKS_CONNECT_VERSION >= "13":
+        from databricks.connect import DatabricksSession
+
+        bd: Any = DatabricksSession.builder
+    else:
+        bd = SparkSession.builder
     for k, v in conf.items():
         bd = bd.config(k, v)
     return bd.getOrCreate()
