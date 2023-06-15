@@ -8,11 +8,6 @@ from .cluster import Cluster
 from .execution_engine import AnyscaleExecutionEngine
 
 
-# TODO: remove after Fugue is fully moved to conditional_dispatcher
-def register() -> None:
-    pass
-
-
 @parse_execution_engine.candidate(
     matcher=lambda engine, conf, **kwargs: isinstance(engine, str)
     and engine.startswith("anyscale"),

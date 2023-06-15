@@ -11,11 +11,6 @@ from triad import ParamDict, assert_or_throw
 from .client import CoiledDaskClient
 
 
-# TODO: remove after Fugue is fully moved to conditional_dispatcher
-def register() -> None:
-    pass
-
-
 @parse_execution_engine.candidate(
     matcher=lambda engine, conf, **kwargs: isinstance(engine, str)
     and (engine == "coiled" or engine.startswith("coiled:"))
