@@ -18,14 +18,14 @@ setup(
     keywords="fugue aws gcp azure databricks",
     url="http://github.com/fugue-project/fugue-cloudprovider",
     install_requires=[
-        "fugue>=0.8.3",
+        "fugue>=0.8.5",
     ],
     extras_require={
         "aws": ["boto3", "fs-s3fs"],
         "gcp": ["fs-gcsfs"],
         "databricks": ["databricks-connect", "databricks-cli"],
         "coiled": ["coiled>=0.2.24", "dask[dataframe,distributed]"],
-        "anyscale": ["fugue[ray]>=0.8.3", "anyscale"],
+        "anyscale": ["fugue[ray]>=0.8.5", "anyscale"],
     },
     entry_points={
         "fugue.plugins": [
